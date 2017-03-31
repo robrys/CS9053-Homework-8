@@ -3,6 +3,11 @@ package edu.nyu.cs9053.homework8;
 // Java 8 only
 import java.time.LocalDateTime;
 
+/*
+ * User: robrys
+ * Date: 4/4/17
+ * Time: 5:00PM
+ */
 public class Job implements Comparable<Job> {
 
     private final LocalDateTime startTime;
