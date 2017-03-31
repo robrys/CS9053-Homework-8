@@ -28,6 +28,9 @@ public class LambdaWeightedScheduler {
         return solution;
     }
 
+    /*
+        Sorts a Collection of Weighted Jobs into an ArrayList, and returns it.
+    */
     private ArrayList<WeightedJob> sortJobsIntoArrayList(Collection<WeightedJob> jobs) {
         // cast Collection -> Array[] -> List so can call Collections.sort()
         WeightedJob[] jobArray = jobs.toArray(new WeightedJob[0]);
@@ -40,6 +43,10 @@ public class LambdaWeightedScheduler {
         return sortedJobArrayList;
     }
 
+    /*
+        Recursively tries all permutations of job orderings to find one
+        which maximizes the total weight of the job ordering.
+    */
     private void recursivelyPermuteJobs(ArrayList<WeightedJob> jobs,
                                         int startIndex,
                                         Stack<WeightedJob> permutation,
@@ -49,9 +56,12 @@ public class LambdaWeightedScheduler {
         for (int currentIndex = startIndex; currentIndex < jobs.size(); currentIndex++) {
             WeightedJob previousJob = (permutation.empty() ? null : permutation.peek());
             WeightedJob currentJob = jobs.get(currentIndex);
+
+            // allows jobs that start *at* or after the finish time of the previous job
             if (permutation.empty() ||
+                currentJob.getStartTime().isEqual(permutation.peek().getFinishTime()) ||
                 currentJob.getStartTime().isAfter(permutation.peek().getFinishTime())) {
-                    permutation.push(jobs.get(currentIndex));
+                    permutation.push(currentJob);
                     recursivelyPermuteJobs(jobs, currentIndex + 1, permutation, solution);
                     permutation.pop();
             }
@@ -66,6 +76,9 @@ public class LambdaWeightedScheduler {
         }
     }
 
+    /*
+        Returns the sum of weights of all jobs in a collection of weighted jobs.
+    */
     private double sumWeightOfJobs(Collection<WeightedJob> jobs) {
         double sum = 0d;
         for (WeightedJob job : jobs) {

@@ -41,7 +41,7 @@ public class Job implements Comparable<Job> {
 
 
     /*
-        Implements comparable interface by comparing job finish time.
+        Implements comparable interface by comparing job *finish* time.
         Returns -1 if this < otherJob, 0 if this = otherJob, 1 if this > otherJob.
     */
     public int compareTo(Job otherJob) {
